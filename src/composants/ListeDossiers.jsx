@@ -1,25 +1,10 @@
 import './ListeDossiers.scss';
 import Dossier from './Dossier';
-import firebase from 'firebase/app';
-import firestore from 'firebase/firestore';
-import { useState, useEffect } from 'react';
-
-// Votre propre objet de configuration ici ;-)
-const firebaseConfig = {
-  
-};
-
-// Étape A : Initialiser Firebase
-if(firebase.apps.length === 0) {
-  firebase.initializeApp(firebaseConfig);
-}
-
-// Étape B : Initialiser Firestore
-const dbFirestore = firebase.firestore();
-
-
+import { useEffect, useState } from 'react';
+import dbFirestore from '../data/firebase';
 
 export default function ListeDossiers() {
+  // État des dossiers de signets
   const [dossiers, setDossiers] = useState([]);
 
   // Étape C : Exécuter une requête sur la collection 'dossiers-temp' pour lire l'info des dossiers disponibles
@@ -27,9 +12,11 @@ export default function ListeDossiers() {
   // donc, il n'y a pas de garantie que le tableau dossiers soit remplit avant l'affichage du composant
   useEffect(
     () => dbFirestore.collection('dossiers-temp').get().then(
-            reponse => reponse.forEach(
-              doc => dossiers.push(doc.data())
-            )
+            reponse => {
+              let dossiersTemp = [];
+              reponse.forEach(doc => dossiersTemp.push({id: doc.id, ...doc.data()}));
+              setDossiers(dossiersTemp);
+            }
           )
     , []
   );
