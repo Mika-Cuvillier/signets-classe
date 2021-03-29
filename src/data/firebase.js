@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import firestore from 'firebase/firestore';
+import * as firebaseui from 'firebaseui';
 
 // Votre propre objet de configuration ici ;-)
 const firebaseConfig = {
@@ -11,13 +12,16 @@ const firebaseConfig = {
   appId: "1:422100533764:web:5cb055c9062799e8812b51"
 };
 
-// Étape A : Initialiser Firebase
+// Initialiser Firebase
 if(firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
 
-// Étape B : Initialiser Firestore
+// Initialiser Firestore
 const dbFirestore = firebase.firestore();
 
 // Exporter par défaut la référence à Firestore
 export default dbFirestore;
+
+// Initialiser FirebaseUI
+export const instanceFbUI = new firebaseui.auth.AuthUI(firebase.auth());
