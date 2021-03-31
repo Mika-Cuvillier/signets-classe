@@ -4,7 +4,7 @@ import * as firebaseui from 'firebaseui';
 
 // Votre propre objet de configuration ici ;-)
 const firebaseConfig = {
-  
+ 
 };
 
 // Initialiser Firebase
