@@ -14,7 +14,15 @@ export default function ListeDossiers() {
     () => dbFirestore.collection('dossiers-temp').get().then(
             reponse => {
               let dossiersTemp = [];
-              reponse.forEach(doc => dossiersTemp.push({id: doc.id, ...doc.data()}));
+              //console.log('Reponse de Firestore : ', reponse);
+              reponse.forEach(
+                doc => {
+                          //console.log('Document Firestore : ', doc);
+                          //console.log('Données associées au document : ', doc.data());
+                          //console.log('ID du document', doc.id);
+                          dossiersTemp.push({...doc.data(), id: doc.id});
+                      });
+              console.log('Le tableau dossiersTemp : ', dossiersTemp);
               setDossiers(dossiersTemp);
             }
           )
