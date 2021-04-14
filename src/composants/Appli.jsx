@@ -18,7 +18,6 @@ export default function Appli() {
         util => {
           // Changer l'état de la variable 'utilisateur'
           setUtilisateur(util);
-          console.log('Voici l\'objet utilisateur de Firebase Auth : ', util);
           // Si l'utilisteur vient de se loguer, créer son profil dans Firestore
           // si c'est un nouvel utilisateur (ou rien faire s'il existe déjà)
           if(util !== null) {
@@ -39,7 +38,7 @@ export default function Appli() {
           <>
             <Entete utilisateur={utilisateur} />
             <section className="contenu-principal">
-              <ListeDossiers />
+              <ListeDossiers utilisateur={utilisateur} />
               <Fab className="ajoutRessource" color="primary" aria-label="Ajouter dossier">
                 <AddIcon />
               </Fab>

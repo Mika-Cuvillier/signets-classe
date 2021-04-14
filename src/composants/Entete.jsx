@@ -5,7 +5,6 @@ import { instanceFirebaseAuth } from '../services/firebase-initialisation';
 
 export default function Entete(props) {
   const utilisateur = props.utilisateur;
-  console.log("L'utilisateur Firebase Auth connecté : ", utilisateur);
   return (
     <header className="Entete">
       <div className="logo">

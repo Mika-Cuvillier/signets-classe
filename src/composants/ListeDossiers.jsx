@@ -1,9 +1,13 @@
 import './ListeDossiers.scss';
 import Dossier from './Dossier';
 import { useEffect, useState } from 'react';
-import { instanceFirestore } from '../services/firebase-initialisation';
+import * as crudDossiers  from '../services/crud-dossiers';
 
-export default function ListeDossiers() {
+export default function ListeDossiers(props) {
+  const utilisateur = props.utilisateur;
+
+  console.log('La constante test du fichier crud-dossiers.js', crudDossiers.test);
+  
   // État des dossiers de signets
   const [dossiers, setDossiers] = useState([]);
 
@@ -11,21 +15,9 @@ export default function ListeDossiers() {
   // Comme le code suivant fait appel à une ressource externe, il est ASYNCHRONE
   // donc, il n'y a pas de garantie que le tableau dossiers soit remplit avant l'affichage du composant
   useEffect(
-    () => instanceFirestore.collection('dossiers-temp').get().then(
-            reponse => {
-              let dossiersTemp = [];
-              //console.log('Reponse de Firestore : ', reponse);
-              reponse.forEach(
-                doc => {
-                          //console.log('Document Firestore : ', doc);
-                          //console.log('Données associées au document : ', doc.data());
-                          //console.log('ID du document', doc.id);
-                          dossiersTemp.push({...doc.data(), id: doc.id});
-                      });
-              console.log('Le tableau dossiersTemp : ', dossiersTemp);
-              setDossiers(dossiersTemp);
-            }
-          )
+    () => crudDossiers.lireTout(utilisateur.uid).then(
+      lesDossiers => setDossiers(lesDossiers)
+    )
     , []
   );
 
