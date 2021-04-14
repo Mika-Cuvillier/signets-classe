@@ -1,7 +1,7 @@
 import './ListeDossiers.scss';
 import Dossier from './Dossier';
 import { useEffect, useState } from 'react';
-import dbFirestore from '../data/firebase';
+import { instanceFirestore } from '../services/firebase-initialisation';
 
 export default function ListeDossiers() {
   // État des dossiers de signets
@@ -11,7 +11,7 @@ export default function ListeDossiers() {
   // Comme le code suivant fait appel à une ressource externe, il est ASYNCHRONE
   // donc, il n'y a pas de garantie que le tableau dossiers soit remplit avant l'affichage du composant
   useEffect(
-    () => dbFirestore.collection('dossiers-temp').get().then(
+    () => instanceFirestore.collection('dossiers-temp').get().then(
             reponse => {
               let dossiersTemp = [];
               //console.log('Reponse de Firestore : ', reponse);
