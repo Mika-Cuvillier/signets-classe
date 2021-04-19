@@ -1,21 +1,10 @@
 import './Accueil.scss';
-import firebase from 'firebase/app';
-import { instanceFirebaseUI } from '../services/firebase-initialisation';
-import 'firebaseui/dist/firebaseui.css';
 import { useEffect } from 'react';
+import * as crudUtilisateurs from '../services/crud-utilisateurs';
 
 export default function Accueil() {
-
-  useEffect(
-    () => instanceFirebaseUI.start('#fbui', {
-      signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.GithubAuthProvider.PROVIDER_ID
-      ],
-      signInFlow: 'popup'
-    })
-  , []);
+  // Afficher le widget d'authentification
+  useEffect(() => crudUtilisateurs.initUI('#fbui'), []);
 
   return (
     <div className="Accueil">

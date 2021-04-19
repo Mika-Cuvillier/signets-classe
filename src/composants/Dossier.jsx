@@ -24,6 +24,7 @@ export default function Dossier({titre, couleur, modification, couverture}) {
 }
 
 function obtenirDateFormatee(objetDateFb) {
+  console.log('Objet date retourné par Firestore dans la prop modification : ', objetDateFb);
   let dateJS = (objetDateFb) ? new Date(objetDateFb.seconds*1000) : new Date();
   let nomsDesMois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
   let jour = dateJS.getDate();

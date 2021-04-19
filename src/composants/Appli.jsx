@@ -8,9 +8,15 @@ import { useState, useEffect } from 'react';
 import firebase from 'firebase/app'; 
 import { instanceFirestore, instanceFirebaseAuth } from '../services/firebase-initialisation';
 import { collUtil } from '../services/config';
+import FormDossier from './FormDossier';
 
 export default function Appli() {
+  // État de l'utilisateur
   const [utilisateur, setUtilisateur] = useState(null);
+  // État des dossiers de signets
+  const [dossiers, setDossiers] = useState([]);
+  // État du formulaire de dossiers
+  const [ouvert, setOuvert] = useState(false);
 
   useEffect(
     () => {
@@ -38,8 +44,9 @@ export default function Appli() {
           <>
             <Entete utilisateur={utilisateur} />
             <section className="contenu-principal">
-              <ListeDossiers utilisateur={utilisateur} />
-              <Fab className="ajoutRessource" color="primary" aria-label="Ajouter dossier">
+              <ListeDossiers utilisateur={utilisateur} dossiers={dossiers} setDossiers={setDossiers} />
+              <FormDossier ouvert={ouvert} setOuvert={setOuvert} />
+              <Fab onClick={() => setOuvert(true)} className="ajoutRessource" color="primary" aria-label="Ajouter dossier">
                 <AddIcon />
               </Fab>
             </section>

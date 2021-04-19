@@ -5,11 +5,8 @@ import * as crudDossiers  from '../services/crud-dossiers';
 
 export default function ListeDossiers(props) {
   const utilisateur = props.utilisateur;
-
-  console.log('La constante test du fichier crud-dossiers.js', crudDossiers.test);
-  
-  // État des dossiers de signets
-  const [dossiers, setDossiers] = useState([]);
+  const dossiers = props.dossiers;
+  const setDossiers = props.setDossiers;
 
   // Étape C : Exécuter une requête sur la collection 'dossiers-temp' pour lire l'info des dossiers disponibles
   // Comme le code suivant fait appel à une ressource externe, il est ASYNCHRONE
