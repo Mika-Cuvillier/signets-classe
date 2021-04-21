@@ -6,12 +6,26 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useState } from 'react';
+import { TwitterPicker } from 'react-color';
 
-export default function FormDossier({ouvert, setOuvert}) {
+
+export default function FormDossier({ouvert, setOuvert, gererAjoutDossier}) {
+  const [titre, setTitre] = useState('');
+  const [couverture, setCouverture] = useState('');
+  const [couleur, setCouleur] = useState('#f00');
+
 
   const gererFermer = () => {
     setOuvert(false);
   };
+
+  function gererEnvoiFormulaire() {
+    // 2) Appeler une fonction qui permet d'intégrer le backend (firebase)
+    gererAjoutDossier(titre, couverture, couleur)
+
+    // 3) Fermer la boîte de dialogue
+    gererFermer();
+  }
 
   return (
     <Dialog open={ouvert} onClose={gererFermer} aria-labelledby="form-dialog-title">
@@ -24,6 +38,7 @@ export default function FormDossier({ouvert, setOuvert}) {
           label="Titre du dossier"
           type="text"
           fullWidth
+          onChange={(e)=>setTitre(e.target.value)}
         />
         <TextField
           margin="dense"
@@ -31,13 +46,19 @@ export default function FormDossier({ouvert, setOuvert}) {
           label="Image de couverture"
           type="url"
           fullWidth
+          onChange={(e)=>setCouverture(e.target.value)}
+        />
+        <TwitterPicker
+          triangle="hide"
+          colors={['#f00', '#0f0', '#00f']}
+          onChangeComplete={(couleur, e) => setCouleur(couleur.hex)}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={gererFermer} color="primary">
           Annuler
         </Button>
-        <Button onClick={gererFermer} color="primary">
+        <Button onClick={gererEnvoiFormulaire} color="primary">
           Ajouter
         </Button>
       </DialogActions>

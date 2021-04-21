@@ -1,5 +1,6 @@
 import {instanceFirestore} from './firebase-initialisation';
 import {collUtil, collDossiers} from './config';
+import firebase from 'firebase/app';
 
 export const test = 'Un test';
 
@@ -23,6 +24,7 @@ export async function modifier() {
 
 }
 
-export async function ajouter() {
-  
+export async function creer(uid, dossier) {
+  dossier.modification = firebase.firestore.FieldValue.serverTimestamp();
+  return instanceFirestore.collection(collUtil).doc(uid).collection(collDossiers).add(dossier);
 }
